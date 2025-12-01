@@ -23,7 +23,7 @@ export default function LoginTemporalPage() {
       const data = await res.json();
 
       if (res.ok) {
-        setMessage('¡Enlace enviado! Revisa tu correo: ' + correo);
+        setMessage('¡Enlace enviado! Revisa tu correo: ');
       } else {
         setMessage(data.message || 'Error al enviar el enlace');
       }
