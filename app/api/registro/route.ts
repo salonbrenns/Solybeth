@@ -22,10 +22,55 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
+     // Reglas obligatorias con regex 
+     const regexMayuscula = /[A-Z]/;
+     const regexMinuscula = /[a-z]/;
+     const regexNumero = /[0-9]/;
+     const regexEspecial = /[!@#$%^&*(),.?":{}|<>_\-+=\[\]\\\/]/;
 
-    if (password.length < 4) {
+    if (password.length < 8) {
       return NextResponse.json(
-        { success: false, message: 'La contraseña debe tener al menos 4 caracteres' },
+        { success: false, message: 'La contraseña debe tener al menos 8 caracteres' },
+        { status: 400 }
+      );
+    }
+    if (!regexMayuscula.test(password)) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: 'La contraseña debe incluir al menos una letra mayúscula.',
+        },
+        { status: 400 }
+      );
+    }
+
+    if (!regexMinuscula.test(password)) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: 'La contraseña debe incluir al menos una letra minúscula.',
+        },
+        { status: 400 }
+      );
+    }
+
+    if (!regexNumero.test(password)) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: 'La contraseña debe incluir al menos un número.',
+        },
+        { status: 400 }
+      );
+    }
+
+    if (!regexEspecial.test(password)) {
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            'La contraseña debe incluir al menos un carácter especial (!@#$%, etc.).',
+        },
         { status: 400 }
       );
     }
